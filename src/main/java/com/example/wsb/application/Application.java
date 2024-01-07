@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 import java.io.File;
 
 @Data@NoArgsConstructor@AllArgsConstructor
-@Entity
+
 public class Application {
-    @GeneratedValue
-    @Id
+
     private int applicationID;
     private int jobID;
     private int candidateID;

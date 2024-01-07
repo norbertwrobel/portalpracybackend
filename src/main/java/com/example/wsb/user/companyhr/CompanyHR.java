@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
-@Data@AllArgsConstructor@NoArgsConstructor
-@Entity
+@AllArgsConstructor@NoArgsConstructor
+
 public class CompanyHR extends User {
 
-    @Id
+    //@Id
     private int companyHR_ID;
 
     private int jobID;
