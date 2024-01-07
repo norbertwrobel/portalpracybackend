@@ -1,15 +1,26 @@
 package com.example.wsb.user;
 
+import com.example.wsb.user.companyhr.CompanyHR;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Data
-@NoArgsConstructor@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@SuperBuilder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 //@Table(name ="users")
-public class User {
+public abstract class User implements UserDetails {
 
     @Id
     @SequenceGenerator(
@@ -20,44 +31,70 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "user_id_sequence"
     )
-    private Integer userID;
+    private Integer userId;
 
-    @Column(
-            nullable = false
-    )
+    @OneToOne
+    @JoinColumn(name = "userId")
+    private CompanyHR companyHR_ID;
+
+    @Column
     private String firstName;
 
-    @Column(
-            nullable = false
-    )
+    @Column
     private String lastName;
 
-    @Column(
-            nullable = false
-    )
-    private String username;
+    @Column
+    private String login;
 
-    @Column(
-            nullable = false
-    )
+    @Column
     private String password;
 
-    @Column(
-            nullable = false
-    )
+    @Column
     private String email;
 
-    @Column(
-            nullable = false
-    )
+    @Column
     private Role role;
 
-    public User(String firstName, String lastName, String username, String password, String email, Role role) {
+    public User(String firstName, String lastName, String password, String email, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public String getPassword(){
+        return password;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

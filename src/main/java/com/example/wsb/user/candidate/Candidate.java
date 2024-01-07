@@ -1,22 +1,29 @@
 package com.example.wsb.user.candidate;
 
+import com.example.wsb.user.Role;
 import com.example.wsb.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@AllArgsConstructor@NoArgsConstructor
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@DiscriminatorValue("candidate")
+@SuperBuilder
 public class Candidate extends User {
     //@GeneratedValue
-    //@Id
-    private int candidateID;
 
-    private int userID;
-    private int companyHR_ID;
+//
+//    private int userID;
+//    private int companyHR_ID;
     private int applicationID;
+
+
+//    public Candidate(String firstName, String lastName, String username, String password, String email, Role role) {
+//        super(firstName, lastName, username, password, email, role);
+//    }
 }

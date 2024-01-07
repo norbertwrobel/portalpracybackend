@@ -41,7 +41,7 @@ public class UserJPADataAccessService implements UserDao {
 
     @Override
     public boolean existsPersonWithId(Integer id) {
-        return userRepository.existsUserById(id);
+        return userRepository.existsUserByUserId(id);
     }
 
     @Override
