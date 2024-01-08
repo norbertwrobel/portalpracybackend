@@ -1,6 +1,8 @@
 package com.example.wsb.user;
 
+import com.example.wsb.user.admin.Admin;
 import com.example.wsb.user.companyhr.CompanyHR;
+import com.example.wsb.user.moderator.Moderator;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,17 +27,25 @@ public abstract class User implements UserDetails {
     @Id
     @SequenceGenerator(
             name ="user_id_sequence",
-            sequenceName = "user_id_sequence"
+            sequenceName = "user_id_seq"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_id_sequence"
+            generator = "user_id_seq"
     )
     private Integer userId;
 
     @OneToOne
     @JoinColumn(name = "userId")
-    private CompanyHR companyHR_ID;
+    private CompanyHR companyHrId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private Admin adminId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Moderator moderatorId;
 
     @Column
     private String firstName;

@@ -19,7 +19,7 @@ public class Candidate extends User {
 
 //
 //    private int userID;
-//    private int companyHR_ID;
+//    private int companyHrId;
     private int applicationID;
 
 

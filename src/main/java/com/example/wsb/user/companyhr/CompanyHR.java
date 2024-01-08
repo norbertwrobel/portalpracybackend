@@ -3,24 +3,29 @@ package com.example.wsb.user.companyhr;
 import com.example.wsb.jobpost.JobPost;
 import com.example.wsb.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
+@SuperBuilder
+@Getter
+@Setter
 @Entity
 public class CompanyHR {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int companyHR_ID;
+    private int companyHrId;
 
-    @OneToOne(mappedBy = "companyHR_ID")
+    @OneToOne(mappedBy = "companyHrId")
     private User userId;
+
+    @OneToMany(mappedBy = "companyHrId")
+    private List<JobPost> jobPosts;
 
     private int jobID;
 }

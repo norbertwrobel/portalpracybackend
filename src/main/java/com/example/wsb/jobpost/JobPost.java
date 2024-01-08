@@ -1,31 +1,43 @@
 package com.example.wsb.jobpost;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.wsb.user.companyhr.CompanyHR;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data@NoArgsConstructor@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@SuperBuilder
 public class JobPost {
 
-    @GeneratedValue
     @Id
-    private int jobID;
-    private int companyHR_ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer jobId;
 
     @Column
     private String title;
 
     @Column
-    @Lob
     private String description;
 
     @Column
     private String requirements;
 
     @Column
-    private int salary;
+    private Integer salary;
+
+    @ManyToOne
+    @JoinColumn(name = "company_hr_id")
+    private CompanyHR companyHrId;
+
+    public void addCompanyHr(CompanyHR companyHR) {
+        setCompanyHrId(companyHR);
+    }
+
+    public void removeCompanyHr() {
+        setCompanyHrId(null);
+    }
 }

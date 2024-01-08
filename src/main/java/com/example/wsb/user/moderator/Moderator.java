@@ -1,11 +1,15 @@
 package com.example.wsb.user.moderator;
 
 import com.example.wsb.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 
+@Entity
+@Getter
+@Setter
 
+@DiscriminatorValue("moderator")
 public class Moderator extends User {
+
 }
