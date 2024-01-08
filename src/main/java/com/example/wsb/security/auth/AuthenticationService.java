@@ -28,12 +28,18 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(RegisterRequest request){
-        User user = Candidate.builder().login(request.getLogin()).password(passwordEncoder.encode(request.getPassword())).role(Role.CANDIDATE).build();
+        User user = Candidate.builder()
+                .login(request.getLogin())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .role(Role.CANDIDATE)
+                .build();
         userRepository.saveAndFlush(user);
 
 
         var jwt = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().jwt(jwt).build();
+        return AuthenticationResponse.builder()
+                .jwt(jwt)
+                .build();
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) throws Exception{
 
@@ -45,6 +51,8 @@ public class AuthenticationService {
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
         var jwt = jwtService.generateToken(user);
-        return AuthenticationResponse.builder().jwt(jwt).build();
+        return AuthenticationResponse.builder()
+                .jwt(jwt)
+                .build();
     }
 }
