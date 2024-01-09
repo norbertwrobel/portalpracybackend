@@ -1,18 +1,17 @@
 package com.example.wsb.jobpost;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/jobposts")
+@RequiredArgsConstructor
 public class JobPostController {
     private final JobPostService jobPostService;
-
-    public JobPostController(JobPostService jobPostService) {
-        this.jobPostService = jobPostService;
-    }
 
     @GetMapping
     public List<JobPost> getJobPosts(){
@@ -28,7 +27,7 @@ public class JobPostController {
 
     @PostMapping
     public void createJobPost(
-            @RequestBody JobPostCreationRequest request){
+            @RequestBody JobPostCreationRequest request) throws IOException {
         jobPostService.createJobPost(request);
     }
 

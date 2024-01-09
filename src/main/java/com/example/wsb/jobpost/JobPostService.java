@@ -1,5 +1,6 @@
 package com.example.wsb.jobpost;
 
+import com.example.wsb.chatgpt.ChatGPTService;
 import com.example.wsb.exception.ResourceNotFoundException;
 import com.example.wsb.user.companyhr.CompanyHR;
 import com.example.wsb.user.companyhr.CompanyHRDao;
@@ -8,6 +9,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Builder
@@ -18,14 +20,21 @@ public class JobPostService {
     private final JobPostDao jobPostDao;
     private final CompanyHRRepository companyHRRepository;
     private final JobPostRepository jobPostRepository;
+    private final ChatGPTService chatGPTService;
 
 
-    public void createJobPost(JobPostCreationRequest creationRequest) {
+    public void createJobPost(JobPostCreationRequest creationRequest) throws IOException {
+        String jobDescription;
 
+        if (creationRequest.isGeneratedWithGPT()) {
+            jobDescription = chatGPTService.generateText(creationRequest.description());
+        } else {
+            jobDescription = creationRequest.description();
+        }
 
         JobPost jobPost = JobPost.builder()
                 .title(creationRequest.title())
-                .description(creationRequest.description())
+                .description(jobDescription)
                 .requirements(creationRequest.requirements())
                 .salary(creationRequest.salary())
                 .build();

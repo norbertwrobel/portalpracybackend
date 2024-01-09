@@ -29,8 +29,11 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request){
         User user = Candidate.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .login(request.getLogin())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .email(request.getEmail())
                 .role(Role.CANDIDATE)
                 .build();
         userRepository.saveAndFlush(user);

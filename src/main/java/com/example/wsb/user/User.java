@@ -27,11 +27,11 @@ public abstract class User implements UserDetails {
     @Id
     @SequenceGenerator(
             name ="user_id_sequence",
-            sequenceName = "user_id_seq"
+            sequenceName = "user_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "user_id_seq"
+            generator = "user_id_sequence"
     )
     private Integer userId;
 
