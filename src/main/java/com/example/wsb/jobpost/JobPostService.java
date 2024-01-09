@@ -48,7 +48,7 @@ public class JobPostService {
         jobPost.addCompanyHr(companyHR);
     }
 
-    public void removeCompanyHrToJobPost(int id) {
+    public void removeCompanyHrFromJobPost(int id) {
         JobPost jobPost = jobPostRepository.findById(id).orElseThrow();
         jobPost.removeCompanyHr();
     }

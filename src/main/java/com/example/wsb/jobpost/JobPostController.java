@@ -48,10 +48,10 @@ public class JobPostController {
     }
 
     @PatchMapping("/{id}/companyHr")
-    public ResponseEntity removeCompanyHrToJobPost(
+    public ResponseEntity removeCompanyHrFromJobPost(
             @PathVariable int id
     ){
-        jobPostService.removeCompanyHrToJobPost(id);
+        jobPostService.removeCompanyHrFromJobPost(id);
         return ResponseEntity.ok().build();
     }
 

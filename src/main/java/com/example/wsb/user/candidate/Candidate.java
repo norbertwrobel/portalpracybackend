@@ -1,10 +1,14 @@
 package com.example.wsb.user.candidate;
 
+import com.example.wsb.application.Application;
+import com.example.wsb.jobpost.JobPost;
 import com.example.wsb.user.Role;
 import com.example.wsb.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 
 @Entity
@@ -22,6 +26,8 @@ public class Candidate extends User {
 //    private int companyHrId;
     private int applicationID;
 
+    @OneToMany(mappedBy = "candidateId")
+    private List<Application> applications;
 
 //    public Candidate(String firstName, String lastName, String username, String password, String email, Role role) {
 //        super(firstName, lastName, username, password, email, role);
