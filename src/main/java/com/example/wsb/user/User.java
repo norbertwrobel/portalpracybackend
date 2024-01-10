@@ -39,14 +39,6 @@ public abstract class User implements UserDetails {
     @JoinColumn(name = "userId")
     private CompanyHR companyHrId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    private Admin adminId;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private Moderator moderatorId;
-
     @Column
     private String firstName;
 

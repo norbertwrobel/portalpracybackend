@@ -1,15 +1,16 @@
 package com.example.wsb.security.auth;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.example.wsb.validation.CheckRegisterRequest;
+import lombok.*;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@CheckRegisterRequest
+@Getter
+@Setter
 public class RegisterRequest {
 
     private String firstName;

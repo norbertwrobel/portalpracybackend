@@ -1,23 +1,16 @@
 package com.example.wsb.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class UserJPADataAccessService implements UserDao {
 
     private final UserRepository userRepository;
-
-    public UserJPADataAccessService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    @Override
-    public List<User> selectAllUsers() {
-        return userRepository.findAll();
-    }
 
     @Override
     public User selectUserById(Integer id) {
@@ -48,4 +41,11 @@ public class UserJPADataAccessService implements UserDao {
     public void updateUser(User update) {
         userRepository.save(update);
     }
+
+    @Override
+    public List<User> findAllUsersWithLeftJoinFetch() {
+        return userRepository.findAllUsersWithLeftJoinFetch();
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.wsb.user;
 import com.example.wsb.exception.DuplicateResourceException;
 import com.example.wsb.exception.RequestValidationException;
 import com.example.wsb.exception.ResourceNotFoundException;
+import com.example.wsb.security.auth.RegisterRequest;
 import com.example.wsb.user.candidate.Candidate;
 import org.springframework.stereotype.Service;
 
@@ -20,24 +21,24 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return userDao.selectAllUsers();
+        return userDao.findAllUsersWithLeftJoinFetch();
     }
 
     public User getUser(Integer id) {
         return userDao.selectUserById(id);
     }
 
-    public void addUser(UserRegistrationRequest userRegistrationRequest) {
-        String email = userRegistrationRequest.email();
+    public void addUser(RegisterRequest userRegistrationRequest) {
+        String email = userRegistrationRequest.getEmail();
         if (userDao.existsPersonWithEmail(email)) {
             throw new DuplicateResourceException("email already taken");
         }
         User user = Candidate.builder()
-                .lastName(userRegistrationRequest.lastName())
-                .login(userRegistrationRequest.login())
-                .password(userRegistrationRequest.password())
-                .email(userRegistrationRequest.email())
-                .role(userRegistrationRequest.role())
+                .lastName(userRegistrationRequest.getLastName())
+                .login(userRegistrationRequest.getLogin())
+                .password(userRegistrationRequest.getPassword())
+                .email(userRegistrationRequest.getEmail())
+                .role(Role.CANDIDATE)
                 .build();
 
         userDao.insertUser(user);
@@ -57,45 +58,39 @@ public class UserService {
 
         boolean changes = false;
 
-        if (updateRequest.firstName() != null && !updateRequest.firstName().equals(user.getFirstName())) {
-            user.setFirstName(updateRequest.firstName());
+        if (updateRequest.getFirstName() != null && !updateRequest.getFirstName().equals(user.getFirstName())) {
+            user.setFirstName(updateRequest.getFirstName());
             changes = true;
         }
 
-        if (updateRequest.lastName() != null && !updateRequest.lastName().equals(user.getLastName())) {
-            user.setLastName(updateRequest.lastName());
+        if (updateRequest.getLastName() != null && !updateRequest.getLastName().equals(user.getLastName())) {
+            user.setLastName(updateRequest.getLastName());
             changes = true;
         }
 
-        if (updateRequest.login() != null && !updateRequest.login().equals(user.getUsername())) {
-            user.setLogin(updateRequest.login());
+        if (updateRequest.getLogin() != null && !updateRequest.getLogin().equals(user.getUsername())) {
+            user.setLogin(updateRequest.getLogin());
             changes = true;
         }
 
-        if (updateRequest.password() != null && !updateRequest.password().equals(user.getPassword())) {
-            user.setPassword(updateRequest.password());
+        if (updateRequest.getPassword() != null && !updateRequest.getPassword().equals(user.getPassword())) {
+            user.setPassword(updateRequest.getPassword());
             changes = true;
         }
 
-        if (updateRequest.email() != null && !updateRequest.email().equals(user.getEmail())) {
-            if (userDao.existsPersonWithEmail(updateRequest.email())) {
+        if (updateRequest.getEmail() != null && !updateRequest.getEmail().equals(user.getEmail())) {
+            if (userDao.existsPersonWithEmail(updateRequest.getEmail())) {
                 throw new DuplicateResourceException(
                         "email already taken"
                 );
             }
-            user.setEmail(updateRequest.email());
-            changes = true;
-        }
-
-        if (updateRequest.role() != null && !updateRequest.role().equals(user.getRole())) {
-            user.setRole(updateRequest.role());
+            user.setEmail(updateRequest.getEmail());
             changes = true;
         }
 
         if (!changes) {
             throw new RequestValidationException("no user changes found");
         }
-
         userDao.updateUser(user);
     }
 

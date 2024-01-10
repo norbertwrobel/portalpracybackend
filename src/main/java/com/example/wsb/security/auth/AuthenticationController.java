@@ -2,8 +2,9 @@ package com.example.wsb.security.auth;
 
 
 import com.example.wsb.exception.ValidationException;
+import com.example.wsb.validation.RegisterRequestValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
@@ -25,9 +26,8 @@ public class AuthenticationController {
     private final RegisterRequestValidator registerRequestValidator;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request ){
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request ){
         Errors errors = new BeanPropertyBindingResult(request, "registerRequest");
-        registerRequestValidator.validate(request, errors);
 
         if (errors.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
