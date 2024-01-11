@@ -37,7 +37,7 @@ public abstract class User implements UserDetails {
 
     @OneToOne
     @JoinColumn(name = "userId")
-    private CompanyHR companyHrId;
+    private CompanyHR companyHr;
 
     @Column
     private String firstName;

@@ -9,7 +9,6 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-
 @DiscriminatorValue("admin")
 public class Admin extends User {
 

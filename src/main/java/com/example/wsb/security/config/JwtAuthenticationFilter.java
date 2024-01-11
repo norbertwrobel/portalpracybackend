@@ -1,6 +1,7 @@
 package com.example.wsb.security.config;
 
 
+import com.example.wsb.user.UserRepository;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -42,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     jwt = authHeader.substring(7);
     username = jwtService.extractUsername(jwt);
     if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userRepository.findUserByLogin(username).orElseThrow();
         if(jwtService.isTokenValid(jwt,userDetails)){
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,null,userDetails.getAuthorities());

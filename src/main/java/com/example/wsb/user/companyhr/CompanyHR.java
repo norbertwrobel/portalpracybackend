@@ -15,17 +15,13 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class CompanyHR {
+public class CompanyHR extends User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int companyHrId;
 
-    @OneToOne(mappedBy = "companyHrId")
-    private User userId;
-
     @OneToMany(mappedBy = "companyHrId")
     private List<JobPost> jobPosts;
 
-    private int jobID;
 }

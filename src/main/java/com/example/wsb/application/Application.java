@@ -27,16 +27,15 @@ public class Application {
     @JoinColumn(name = "fileId")
     private File file;
 
-
     @ManyToOne
-    @JoinColumn(name = "candidateId")
-    private User candidateId;
+    @JoinColumn(name = "applicationId")
+    private Candidate candidate;
 
     public void addCandidate(Candidate candidate){
-        setCandidateId(candidate);
+        setCandidate(candidate);
     }
 
     public void removeCandidate(){
-        setCandidateId(null);
+        setCandidate(null);
     }
 }

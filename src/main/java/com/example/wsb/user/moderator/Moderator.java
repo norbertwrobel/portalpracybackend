@@ -8,7 +8,6 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-
 @DiscriminatorValue("moderator")
 public class Moderator extends User {
 

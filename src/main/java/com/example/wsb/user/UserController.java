@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -14,15 +15,15 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getAllUsers();
+    public List<UserDTO> getUsers() {
+        return userService.getAllUsers().stream().map(UserDTO::createFrom).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public User getUser(
+    public UserDTO getUser(
             @PathVariable Integer id
     ) {
-        return userService.getUser(id);
+        return UserDTO.createFrom(userService.getUser(id));
     }
 
     @PostMapping

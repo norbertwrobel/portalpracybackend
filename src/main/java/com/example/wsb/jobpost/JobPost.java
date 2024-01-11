@@ -30,14 +30,14 @@ public class JobPost {
     private Integer salary;
 
     @ManyToOne
-    @JoinColumn(name = "company_hr_id")
-    private CompanyHR companyHrId;
+    @JoinColumn(name = "jobId")
+    private CompanyHR companyHr;
 
     public void addCompanyHr(CompanyHR companyHR) {
-        setCompanyHrId(companyHR);
+        setCompanyHr(companyHR);
     }
 
     public void removeCompanyHr() {
-        setCompanyHrId(null);
+        setCompanyHr(null);
     }
 }

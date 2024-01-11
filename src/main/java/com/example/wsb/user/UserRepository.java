@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsUserByUserId(Integer id);
     Optional<User> findUserByLogin(String login);
 
-    @Query("select u from User u left join fetch u.companyHrId")
+    @Query("select u from User u left join fetch u.companyHr")
     List<User> findAllUsersWithLeftJoinFetch();
 
 }

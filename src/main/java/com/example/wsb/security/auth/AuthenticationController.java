@@ -23,7 +23,6 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
-    private final RegisterRequestValidator registerRequestValidator;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegisterRequest request ){
@@ -38,8 +37,6 @@ public class AuthenticationController {
             });
             throw new ValidationException(errorMap);
         }
-
-
         return ResponseEntity.ok(authenticationService.register(request));
     }
 

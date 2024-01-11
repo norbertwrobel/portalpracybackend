@@ -19,17 +19,8 @@ import java.util.List;
 @DiscriminatorValue("candidate")
 @SuperBuilder
 public class Candidate extends User {
-    //@GeneratedValue
 
-//
-//    private int userID;
-//    private int companyHrId;
-    private int applicationID;
-
-    @OneToMany(mappedBy = "candidateId")
+    @OneToMany(mappedBy = "userId")
     private List<Application> applications;
 
-//    public Candidate(String firstName, String lastName, String username, String password, String email, Role role) {
-//        super(firstName, lastName, username, password, email, role);
-//    }
 }

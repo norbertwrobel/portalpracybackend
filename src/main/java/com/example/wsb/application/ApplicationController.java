@@ -20,11 +20,11 @@ public class ApplicationController {
         return applicationService.getAllApplications();
     }
 
-    @GetMapping("{applicationId}")
+    @GetMapping("/{id}")
     public Application getApplication(
-            @PathVariable("applicationId") Integer applicationId
+            @PathVariable Integer id
     ){
-        return applicationService.getApplication(applicationId);
+        return applicationService.getApplication(id);
     }
 
     @PostMapping
@@ -33,11 +33,11 @@ public class ApplicationController {
         applicationService.createApplication(request);
     }
 
-    @DeleteMapping("{applicationId}")
+    @DeleteMapping("/{id}")
     public void deleteApplication(
-            @PathVariable("applicationId") Integer applicationId
+            @PathVariable("applicationId") Integer id
     ){
-        applicationService.deleteApplicationById(applicationId);
+        applicationService.deleteApplicationById(id);
     }
 
     @PatchMapping("/{id}/candidate/{candidateId}")
@@ -54,6 +54,15 @@ public class ApplicationController {
     ){
         applicationService.removeCandidateFromApplication(id);
         return  ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity changeStatus(
+            @PathVariable int id,
+            @RequestParam ApplicationStatus status
+    ){
+        applicationService.changeStatusOfApplication(id,status);
+        return ResponseEntity.ok().build();
     }
 
 }

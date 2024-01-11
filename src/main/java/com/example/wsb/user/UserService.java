@@ -5,20 +5,24 @@ import com.example.wsb.exception.RequestValidationException;
 import com.example.wsb.exception.ResourceNotFoundException;
 import com.example.wsb.security.auth.RegisterRequest;
 import com.example.wsb.user.candidate.Candidate;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
 
     private final UserDao userDao;
-
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
+    private final UserRepository userRepository;
 
     public List<User> getAllUsers() {
         return userDao.findAllUsersWithLeftJoinFetch();
@@ -57,6 +61,7 @@ public class UserService {
         User user = getUser(userId);
 
         boolean changes = false;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (updateRequest.getFirstName() != null && !updateRequest.getFirstName().equals(user.getFirstName())) {
             user.setFirstName(updateRequest.getFirstName());
@@ -70,6 +75,7 @@ public class UserService {
 
         if (updateRequest.getLogin() != null && !updateRequest.getLogin().equals(user.getUsername())) {
             user.setLogin(updateRequest.getLogin());
+
             changes = true;
         }
 
@@ -91,7 +97,14 @@ public class UserService {
         if (!changes) {
             throw new RequestValidationException("no user changes found");
         }
-        userDao.updateUser(user);
+        userRepository.save(user);
+        //  automatically logged out logged user when is edited
+        if(authentication.isAuthenticated()){
+            SecurityContextHolder.getContext().setAuthentication(null);
+        }
+
+
+
     }
 
 

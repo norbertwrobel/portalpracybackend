@@ -60,4 +60,9 @@ public class ApplicationService {
         Application application = applicationRepository.findById(id).orElseThrow();
         application.removeCandidate();
     }
+
+    public void changeStatusOfApplication(int id ,ApplicationStatus applicationStatus) {
+        Application application = applicationRepository.findById(id).orElseThrow();
+        application.setStatus(applicationStatus);
+    }
 }
