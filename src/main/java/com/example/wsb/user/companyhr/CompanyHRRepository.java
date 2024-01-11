@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompanyHRRepository extends JpaRepository<CompanyHR, Integer> {
 
-    boolean existsCompanyHRByCompanyHrId(Integer id);
 }

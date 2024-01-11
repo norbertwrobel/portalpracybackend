@@ -35,10 +35,6 @@ public abstract class User implements UserDetails {
     )
     private Integer userId;
 
-    @OneToOne
-    @JoinColumn(name = "userId")
-    private CompanyHR companyHr;
-
     @Column
     private String firstName;
 

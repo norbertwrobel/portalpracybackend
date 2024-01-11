@@ -44,7 +44,7 @@ public class UserJPADataAccessService implements UserDao {
 
     @Override
     public List<User> findAllUsersWithLeftJoinFetch() {
-        return userRepository.findAllUsersWithLeftJoinFetch();
+        return userRepository.findAll();
     }
 
 

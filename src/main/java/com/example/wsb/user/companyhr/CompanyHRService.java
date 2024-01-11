@@ -20,20 +20,15 @@ public class CompanyHRService {
         return companyHRDao.selectCompanyHRById(id);
     }
 
-    public void createCompanyHR(User user) {                //fdasjfoiajweoifjaweoijfaoiwjefoiawjfoiweajoi
+    public void createCompanyHR(User user) {
         CompanyHR companyHR = CompanyHR.builder()
-                .userId(user)
+                .userId(user.getUserId())
                 .build();
 
         companyHRDao.insertCompanyHR(companyHR);
     }
 
     public void deleteCompanyHRById(Integer companyHRId) {
-        if (!companyHRDao.existsCompanyHRWithId(companyHRId)) {
-            throw new ResourceNotFoundException(
-                    "CompanyHR with id [%s] not found".formatted(companyHRId)
-            );
-        }
         companyHRDao.deleteCompanyHRById(companyHRId);
     }
 }

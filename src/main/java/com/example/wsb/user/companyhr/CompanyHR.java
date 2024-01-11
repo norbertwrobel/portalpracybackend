@@ -15,13 +15,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("companyHr")
 public class CompanyHR extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int companyHrId;
-
-    @OneToMany(mappedBy = "companyHrId")
+    @OneToMany(mappedBy = "companyHr")
     private List<JobPost> jobPosts;
 
 }

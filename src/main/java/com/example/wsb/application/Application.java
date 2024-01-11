@@ -28,7 +28,7 @@ public class Application {
     private File file;
 
     @ManyToOne
-    @JoinColumn(name = "applicationId")
+    @JoinColumn(name = "userId")
     private Candidate candidate;
 
     public void addCandidate(Candidate candidate){

@@ -27,10 +27,6 @@ public class CompanyHRJPADataAccessService implements CompanyHRDao{
         companyHRRepository.save(companyHR);
     }
 
-    @Override
-    public boolean existsCompanyHRWithId(Integer id) {
-        return companyHRRepository.existsCompanyHRByCompanyHrId(id);
-    }
 
     @Override
     public void deleteCompanyHRById(Integer companyHRId) {

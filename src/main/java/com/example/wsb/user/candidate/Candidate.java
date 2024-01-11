@@ -20,7 +20,7 @@ import java.util.List;
 @SuperBuilder
 public class Candidate extends User {
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "candidate")
     private List<Application> applications;
 
 }
