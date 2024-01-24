@@ -14,17 +14,17 @@ public class RegisterRequestValidator implements ConstraintValidator<CheckRegist
 
     @Override
     public boolean isValid(RegisterRequest registerRequest, ConstraintValidatorContext constraintValidatorContext) {
-        if (registerRequest.getFirstName() == null || registerRequest.getFirstName().trim().isEmpty()) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("First Name must not be empty.")
-                    .addPropertyNode("firstName").addConstraintViolation();
-            return false;
-        }
-
-        if (registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("Last Name must not be empty.")
-                    .addPropertyNode("lastName").addConstraintViolation();
-            return false;
-        }
+//        if (registerRequest.getFirstName() == null || registerRequest.getFirstName().trim().isEmpty()) {
+//            constraintValidatorContext.buildConstraintViolationWithTemplate("First Name must not be empty.")
+//                    .addPropertyNode("firstName").addConstraintViolation();
+//            return false;
+//        }
+//
+//        if (registerRequest.getLastName() == null || registerRequest.getLastName().trim().isEmpty()) {
+//            constraintValidatorContext.buildConstraintViolationWithTemplate("Last Name must not be empty.")
+//                    .addPropertyNode("lastName").addConstraintViolation();
+//            return false;
+//        }
 
         if (registerRequest.getLogin() == null || registerRequest.getLogin().trim().isEmpty()) {
             constraintValidatorContext.buildConstraintViolationWithTemplate("Login must not be empty.")
@@ -42,15 +42,15 @@ public class RegisterRequestValidator implements ConstraintValidator<CheckRegist
             return false;
         }
 
-        if (registerRequest.getEmail() == null || registerRequest.getEmail().trim().isEmpty()) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("Email must not be empty.")
-                    .addPropertyNode("email").addConstraintViolation();
-            return false;
-        } else if (!registerRequest.getEmail().matches("[\\w.-]+@[\\w.-]+")) {
-            constraintValidatorContext.buildConstraintViolationWithTemplate("Email must be a well-formed email address.")
-                    .addPropertyNode("email").addConstraintViolation();
-            return false;
-        }
+//        if (registerRequest.getEmail() == null || registerRequest.getEmail().trim().isEmpty()) {
+//            constraintValidatorContext.buildConstraintViolationWithTemplate("Email must not be empty.")
+//                    .addPropertyNode("email").addConstraintViolation();
+//            return false;
+//        } else if (!registerRequest.getEmail().matches("[\\w.-]+@[\\w.-]+")) {
+//            constraintValidatorContext.buildConstraintViolationWithTemplate("Email must be a well-formed email address.")
+//                    .addPropertyNode("email").addConstraintViolation();
+//            return false;
+//        }
 
         return true;
     }

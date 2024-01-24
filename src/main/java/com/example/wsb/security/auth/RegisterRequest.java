@@ -1,6 +1,7 @@
 package com.example.wsb.security.auth;
 
 
+import com.example.wsb.user.Role;
 import com.example.wsb.validation.CheckRegisterRequest;
 import lombok.*;
 
@@ -18,5 +19,6 @@ public class RegisterRequest {
     private String login;
     private String password;
     private String email;
+    private Role role;
 
 }

@@ -6,11 +6,8 @@ import com.example.wsb.exception.ResourceNotFoundException;
 import com.example.wsb.security.auth.RegisterRequest;
 import com.example.wsb.user.candidate.Candidate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +35,7 @@ public class UserService {
             throw new DuplicateResourceException("email already taken");
         }
         User user = Candidate.builder()
+                .firstName(userRegistrationRequest.getFirstName())
                 .lastName(userRegistrationRequest.getLastName())
                 .login(userRegistrationRequest.getLogin())
                 .password(userRegistrationRequest.getPassword())
@@ -108,4 +106,7 @@ public class UserService {
     }
 
 
+    public Optional<User> findUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
+    }
 }

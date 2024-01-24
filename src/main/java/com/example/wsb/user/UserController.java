@@ -19,12 +19,12 @@ public class UserController {
         return userService.getAllUsers().stream().map(UserDTO::createFrom).collect(Collectors.toList());
     }
 
-    @GetMapping("/{id}")
-    public UserDTO getUser(
-            @PathVariable Integer id
-    ) {
-        return UserDTO.createFrom(userService.getUser(id));
-    }
+//    @GetMapping("/{id}")
+//    public UserDTO getUser(
+//            @PathVariable Integer id
+//    ) {
+//        return UserDTO.createFrom(userService.getUser(id));
+//    }
 
     @PostMapping
     public void createUser(
@@ -45,6 +45,13 @@ public class UserController {
             @RequestBody UserUpdateRequest updateRequest
     ) {
         userService.updateUser(id, updateRequest);
+    }
+
+    @GetMapping("/{login}")
+    public UserDTO findUserByLogin(
+            @PathVariable String login
+    ){
+        return UserDTO.createFrom(userService.findUserByLogin(login).orElseThrow());
     }
 
 

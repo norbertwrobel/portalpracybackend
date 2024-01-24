@@ -34,7 +34,7 @@ public class AuthenticationService {
                 .login(request.getLogin())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
-                .role(Role.CANDIDATE)
+                .role(Role.valueOf(String.valueOf(request.getRole())))
                 .build();
         userRepository.saveAndFlush(user);
 
