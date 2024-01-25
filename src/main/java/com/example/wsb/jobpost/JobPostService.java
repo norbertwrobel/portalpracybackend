@@ -26,15 +26,16 @@ public class JobPostService {
     public void createJobPost(JobPostCreationRequest creationRequest) throws IOException {
         String jobDescription;
 
-        if (creationRequest.isGeneratedWithGPT()) {
-            jobDescription = chatGPTService.generateText(creationRequest.description());
-        } else {
-            jobDescription = creationRequest.description();
-        }
+//        if (creationRequest.isGeneratedWithGPT()) {
+//            jobDescription = chatGPTService.generateText(creationRequest.description());
+//        } else {
+//            jobDescription = creationRequest.description();
+//        }
 
         JobPost jobPost = JobPost.builder()
                 .title(creationRequest.title())
-                .description(jobDescription)
+                //.description(jobDescription)
+                .description(creationRequest.description())
                 .requirements(creationRequest.requirements())
                 .salary(creationRequest.salary())
                 .build();

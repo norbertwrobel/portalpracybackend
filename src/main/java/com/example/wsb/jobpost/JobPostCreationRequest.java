@@ -4,8 +4,7 @@ public record JobPostCreationRequest(
         String title,
         String description,
         String requirements,
-        Integer salary,
-        Integer companyHrId,
-        boolean isGeneratedWithGPT
+        Integer salary
+        //boolean isGeneratedWithGPT
 ) {
 }
