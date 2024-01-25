@@ -32,19 +32,21 @@ public class UserController {
         userService.addUser(request);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{login}")
     public void deleteUser(
-            @PathVariable Integer id
+            @PathVariable String login
     ) {
-        userService.deleteUserById(id);
+        User user = userService.findUserByLogin(login).orElseThrow();
+        userService.deleteUserById(user.getUserId());
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{login}")
     public void updateUser(
-            @PathVariable Integer id,
+            @PathVariable String login,
             @RequestBody UserUpdateRequest updateRequest
     ) {
-        userService.updateUser(id, updateRequest);
+        User user = userService.findUserByLogin(login).orElseThrow();
+        userService.updateUser(user.getUserId(), updateRequest);
     }
 
     @GetMapping("/{login}")
