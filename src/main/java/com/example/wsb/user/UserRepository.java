@@ -16,6 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //@Query("select u from User u left join fetch u.companyHr")
    // List<User> findAllUsersWithLeftJoinFetch();
 
-    //TODO TO SAMO TYLKO KURWA ZAMIAST USER T O CANDIDATE
+
 
 }

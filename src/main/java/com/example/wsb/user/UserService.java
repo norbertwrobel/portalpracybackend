@@ -3,6 +3,8 @@ package com.example.wsb.user;
 import com.example.wsb.exception.DuplicateResourceException;
 import com.example.wsb.exception.RequestValidationException;
 import com.example.wsb.exception.ResourceNotFoundException;
+import com.example.wsb.jobpost.JobPost;
+import com.example.wsb.jobpost.JobPostRepository;
 import com.example.wsb.security.auth.RegisterRequest;
 import com.example.wsb.user.candidate.Candidate;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,8 @@ public class UserService {
         }
         userDao.deleteUserById(userId);
     }
+
+
 
     public void updateUser(Integer userId, UserUpdateRequest updateRequest) {
         User user = getUser(userId);
