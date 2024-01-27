@@ -18,7 +18,7 @@ public class JobPostController {
         return jobPostService.getAllJobPosts();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public JobPost getJobPost(
             @PathVariable("id") Integer jobPostId
     ){
@@ -26,19 +26,29 @@ public class JobPostController {
     }
 
     @PostMapping
-    public void createJobPost(
+    public CreateJobPostResponse createJobPost(
             @RequestBody JobPostCreationRequest request) throws IOException {
-        jobPostService.createJobPost(request);
+        return jobPostService.createJobPost(request);
+
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteJobPost(
             @PathVariable("id") Integer jobPostId
     ){
         jobPostService.deleteJobPostById(jobPostId);
     }
 
-    @PatchMapping("/{id}/companyHr/{companyHrId}")
+    @PutMapping("/{id}")
+    public ResponseEntity editJobPost(
+            @PathVariable("id") Integer jobPostId,
+            @RequestBody JobPostCreationRequest request
+    ){
+       jobPostService.editJobPost(jobPostId,request);
+       return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/companyHr/{companyHrId}")
     public ResponseEntity addCompanyHrToJobPost(
             @PathVariable int id, @PathVariable int companyHrId
     ){

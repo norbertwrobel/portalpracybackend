@@ -2,6 +2,8 @@ package com.example.wsb.jobpost;
 
 import com.example.wsb.chatgpt.ChatGPTService;
 import com.example.wsb.exception.ResourceNotFoundException;
+import com.example.wsb.user.User;
+import com.example.wsb.user.UserRepository;
 import com.example.wsb.user.companyhr.CompanyHR;
 import com.example.wsb.user.companyhr.CompanyHRDao;
 import com.example.wsb.user.companyhr.CompanyHRRepository;
@@ -21,9 +23,10 @@ public class JobPostService {
     private final CompanyHRRepository companyHRRepository;
     private final JobPostRepository jobPostRepository;
     private final ChatGPTService chatGPTService;
+    private final UserRepository userRepository;
 
 
-    public void createJobPost(JobPostCreationRequest creationRequest) throws IOException {
+    public CreateJobPostResponse createJobPost(JobPostCreationRequest creationRequest) throws IOException {
         String jobDescription;
 
 //        if (creationRequest.isGeneratedWithGPT()) {
@@ -40,7 +43,8 @@ public class JobPostService {
                 .salary(creationRequest.salary())
                 .build();
 
-        jobPostDao.insertJobPost(jobPost);
+        JobPost savedJobPost = jobPostRepository.saveAndFlush(jobPost);
+        return CreateJobPostResponse.builder().jobId(savedJobPost.getJobId()).build();
     }
 
     public void deleteJobPostById(Integer jobPostId) {
@@ -54,8 +58,9 @@ public class JobPostService {
 
     public void addCompanyHrToJobPost(int id, int companyHrId) {
         JobPost jobPost = jobPostRepository.findById(id).orElseThrow();
-        CompanyHR companyHR = companyHRRepository.findById(companyHrId).orElseThrow();
+        User companyHR = userRepository.findById(companyHrId).orElseThrow();
         jobPost.addCompanyHr(companyHR);
+        jobPostRepository.saveAndFlush(jobPost);
     }
 
     public void removeCompanyHrFromJobPost(int id) {
@@ -72,4 +77,12 @@ public class JobPostService {
     }
 
 
+    public void editJobPost(Integer jobPostId,JobPostCreationRequest request) {
+        JobPost jobPost = jobPostRepository.findById(jobPostId).orElseThrow();
+        jobPost.setDescription(request.description());
+        jobPost.setSalary(request.salary());
+        jobPost.setTitle(request.title());
+        jobPost.setRequirements(request.requirements());
+        jobPostRepository.save(jobPost);
+    }
 }
