@@ -1,5 +1,6 @@
 package com.example.wsb.jobpost;
 
+import com.example.wsb.user.User;
 import com.example.wsb.user.companyhr.CompanyHR;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,9 +32,9 @@ public class JobPost {
 
     @ManyToOne
     @JoinColumn(name = "companyHr")
-    private CompanyHR companyHr;
+    private User companyHr;
 
-    public void addCompanyHr(CompanyHR companyHR) {
+    public void addCompanyHr(User companyHR) {
         setCompanyHr(companyHR);
     }
 

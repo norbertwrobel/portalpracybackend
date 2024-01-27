@@ -96,9 +96,10 @@ public class UserService {
             throw new RequestValidationException("no user changes found");
         }
         userRepository.save(user);
+
         //  automatically logged out logged user when is edited
-        if(authentication.isAuthenticated()){
-            SecurityContextHolder.getContext().setAuthentication(null);
+        if (authentication.isAuthenticated()) {
+            SecurityContextHolder.clearContext();
         }
 
 
