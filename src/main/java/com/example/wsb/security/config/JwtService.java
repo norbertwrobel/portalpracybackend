@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.security.Key;
@@ -28,14 +29,25 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(),userDetails);
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        // Pobieranie ról użytkownika i dodawanie ich do claims
+        extraClaims.put("scopes", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority) // Pobieranie nazwy roli (np. ROLE_ADMIN)
+                //.map(role -> role.replace("ROLE_", "")) // Opcjonalne usunięcie prefiksu "ROLE_"
+                .toList());
+
+        return generateToken(extraClaims,userDetails);
     }
 
     public String generateToken(Map<String,Object> extraClaims, UserDetails userDetails){
-         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
+         return Jwts.builder()
+                 .setClaims(extraClaims)
+                 .setSubject(userDetails.getUsername())
                  .setIssuedAt(new Date(System.currentTimeMillis()))
-                 .setExpiration(new Date(System.currentTimeMillis() + 10000 * 60 * 24))
-                 .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
+                 .setExpiration(new Date(System.currentTimeMillis() + 10000000 * 60 * 24))
+                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                 .compact();
     }
 
     public boolean isTokenValid(String jwt,UserDetails userDetails){

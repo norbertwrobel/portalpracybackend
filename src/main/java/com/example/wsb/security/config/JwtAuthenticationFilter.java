@@ -37,6 +37,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        if (request.getMethod().equals("POST") && request.getRequestURI().equals("/api/v1/users")) {
+            // Skip authentication for POST /api/v1/users
+            filterChain.doFilter(request, response);
+            return;
+        }
     if(authHeader == null || !authHeader.startsWith("Bearer ")){
         filterChain.doFilter(request,response);
         return;

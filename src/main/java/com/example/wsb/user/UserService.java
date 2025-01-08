@@ -10,7 +10,9 @@ import com.example.wsb.user.candidate.Candidate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,7 @@ public class UserService {
 
     private final UserDao userDao;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers() {
         return userDao.findAllUsersWithLeftJoinFetch();
@@ -40,7 +43,7 @@ public class UserService {
                 .firstName(userRegistrationRequest.getFirstName())
                 .lastName(userRegistrationRequest.getLastName())
                 .login(userRegistrationRequest.getLogin())
-                .password(userRegistrationRequest.getPassword())
+                .password(passwordEncoder.encode(userRegistrationRequest.getPassword()))
                 .email(userRegistrationRequest.getEmail())
                 .role(Role.CANDIDATE)
                 .build();
@@ -81,8 +84,12 @@ public class UserService {
             changes = true;
         }
 
+
         if (updateRequest.getPassword() != null && !updateRequest.getPassword().equals(user.getPassword())) {
-            user.setPassword(updateRequest.getPassword());
+
+            String encryptedPassword = passwordEncoder.encode(updateRequest.getPassword());
+            user.setPassword(encryptedPassword);
+
             changes = true;
         }
 
@@ -101,10 +108,7 @@ public class UserService {
         }
         userRepository.save(user);
 
-        //  automatically logged out logged user when is edited
-        if (authentication.isAuthenticated()) {
-            SecurityContextHolder.clearContext();
-        }
+
 
 
 
