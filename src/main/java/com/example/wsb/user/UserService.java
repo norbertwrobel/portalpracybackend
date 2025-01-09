@@ -45,7 +45,7 @@ public class UserService {
                 .login(userRegistrationRequest.getLogin())
                 .password(passwordEncoder.encode(userRegistrationRequest.getPassword()))
                 .email(userRegistrationRequest.getEmail())
-                .role(Role.CANDIDATE)
+                .role(userRegistrationRequest.getRole())
                 .build();
 
         userDao.insertUser(user);

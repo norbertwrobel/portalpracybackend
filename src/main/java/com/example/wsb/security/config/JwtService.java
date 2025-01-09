@@ -1,4 +1,5 @@
 package com.example.wsb.security.config;
+import com.example.wsb.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,6 +37,11 @@ public class JwtService {
                 .map(GrantedAuthority::getAuthority) // Pobieranie nazwy roli (np. ROLE_ADMIN)
                 //.map(role -> role.replace("ROLE_", "")) // Opcjonalne usunięcie prefiksu "ROLE_"
                 .toList());
+
+        if (userDetails instanceof User) {
+            Integer userId = ((User) userDetails).getUserId();  // Uzyskanie userId z obiektu User
+            extraClaims.put("userId", userId);
+        }
 
         return generateToken(extraClaims,userDetails);
     }
