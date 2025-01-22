@@ -23,6 +23,8 @@ public class ApplicationJPADataAccessService implements ApplicationDao{
         return applicationRepository.getById(id);
     }
 
+
+
     @Override
     public void insertApplication(Application application) {
         applicationRepository.save(application);

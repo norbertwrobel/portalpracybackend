@@ -1,5 +1,6 @@
 package com.example.wsb.application;
 
+import com.example.wsb.jobpost.JobPost;
 import com.example.wsb.user.User;
 import com.example.wsb.user.candidate.Candidate;
 import jakarta.persistence.*;
@@ -30,6 +31,10 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "userId")
     private Candidate candidate;
+
+    @ManyToOne
+    @JoinColumn(name = "jobId")
+    private JobPost jobPost;
 
     public void addCandidate(Candidate candidate){
         setCandidate(candidate);

@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/users") // Allow only POST /api/v1/users without authentication
+                .requestMatchers(HttpMethod.POST, "/api/v1/users") // allow only POST /api/v1/users without authentication
                 .permitAll()
                 .anyRequest()
                 .authenticated()

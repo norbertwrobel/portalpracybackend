@@ -35,7 +35,7 @@ public class JwtService {
         // Pobieranie ról użytkownika i dodawanie ich do claims
         extraClaims.put("scopes", userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority) // Pobieranie nazwy roli (np. ROLE_ADMIN)
-                //.map(role -> role.replace("ROLE_", "")) // Opcjonalne usunięcie prefiksu "ROLE_"
+
                 .toList());
 
         if (userDetails instanceof User) {

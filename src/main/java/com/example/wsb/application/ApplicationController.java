@@ -1,7 +1,9 @@
 package com.example.wsb.application;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,6 +35,15 @@ public class ApplicationController {
         applicationService.createApplication(request);
     }
 
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public void createApplicationWithFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Integer userId,
+            @RequestParam("jobPostId") Integer jobPostId
+    ) {
+        applicationService.createApplicationWithFile(file, userId, jobPostId);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteApplication(
             @PathVariable("applicationId") Integer id
@@ -56,13 +67,20 @@ public class ApplicationController {
         return  ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/status")
     public ResponseEntity changeStatus(
-            @PathVariable int id,
+            @PathVariable Integer id,
             @RequestParam ApplicationStatus status
-    ){
-        applicationService.changeStatusOfApplication(id,status);
+    ) {
+        applicationService.changeStatusOfApplication(id, status);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Application> getApplicationsForUser(
+            @PathVariable Integer userId
+    ) {
+        return applicationService.getApplicationsForUser(userId);
     }
 
 }
