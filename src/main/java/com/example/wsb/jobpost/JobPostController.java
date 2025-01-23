@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/jobposts")
@@ -14,15 +15,15 @@ public class JobPostController {
     private final JobPostService jobPostService;
 
     @GetMapping
-    public List<JobPost> getJobPosts(){
-        return jobPostService.getAllJobPosts();
+    public List<JobPostDTO> getJobPosts(){
+        return jobPostService.getAllJobPosts().stream().map(JobPostDTO::createFrom).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public JobPost getJobPost(
+    public JobPostDTO getJobPost(
             @PathVariable("id") Integer jobPostId
     ){
-        return jobPostService.getJobPost(jobPostId);
+        return JobPostDTO.createFrom(jobPostService.getJobPost(jobPostId));
     }
 
     @PostMapping

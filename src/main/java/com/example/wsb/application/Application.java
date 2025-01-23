@@ -30,10 +30,12 @@ public class Application {
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @ToString.Exclude
     private Candidate candidate;
 
     @ManyToOne
     @JoinColumn(name = "jobId")
+    @ToString.Exclude
     private JobPost jobPost;
 
     public void addCandidate(Candidate candidate){

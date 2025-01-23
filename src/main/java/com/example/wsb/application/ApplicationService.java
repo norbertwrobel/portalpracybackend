@@ -7,6 +7,7 @@ import com.example.wsb.jobpost.JobPost;
 import com.example.wsb.jobpost.JobPostRepository;
 import com.example.wsb.user.candidate.Candidate;
 import com.example.wsb.user.candidate.CandidateRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -107,17 +108,17 @@ public class ApplicationService {
             throw new RuntimeException("Nie udało się zapisać pliku", e);
         }
 
-        // Odczytanie danych pliku jako byte[]
-        byte[] fileData;
-        try {
-            fileData = Files.readAllBytes(filePath); // Odczytujemy dane z zapisanych plików na dysku
-        } catch (IOException e) {
-            throw new RuntimeException("Nie udało się odczytać danych z pliku", e);
-        }
-
+//        // Odczytanie danych pliku jako byte[]
+//        byte[] fileData;
+//        try {
+//            fileData = Files.readAllBytes(filePath); // Odczytujemy dane z zapisanych plików na dysku
+//        } catch (IOException e) {
+//            throw new RuntimeException("Nie udało się odczytać danych z pliku", e);
+//        }
+//
         // Utworzenie obiektu File i zapis w bazie danych
         File savedFile = new File();
-        savedFile.setData(fileData); // Przypisanie danych pliku jako byte[]
+        savedFile.setFileName(fileName); // Zapisanie nazwy pliku, a nie danych binarnych
         File persistedFile = fileRepository.save(savedFile);
 
         // Tworzenie aplikacji z przypisaniem użytkownika i statusem `PENDING`

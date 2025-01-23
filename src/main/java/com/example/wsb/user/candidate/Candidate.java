@@ -21,6 +21,7 @@ import java.util.List;
 public class Candidate extends User {
 
     @OneToMany(mappedBy = "candidate")
+    @ToString.Exclude
     private List<Application> applications;
 
 }

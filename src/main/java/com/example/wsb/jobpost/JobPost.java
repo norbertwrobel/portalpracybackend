@@ -1,10 +1,13 @@
 package com.example.wsb.jobpost;
 
+import com.example.wsb.application.Application;
 import com.example.wsb.user.User;
 import com.example.wsb.user.companyhr.CompanyHR;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,8 +33,13 @@ public class JobPost {
     @Column
     private Integer salary;
 
+    @OneToMany(mappedBy = "jobPost")
+    @ToString.Exclude
+    private List<Application> application;
+
     @ManyToOne
     @JoinColumn(name = "companyHr")
+    @ToString.Exclude
     private User companyHr;
 
     public void addCompanyHr(User companyHR) {

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/applications")
@@ -18,15 +19,15 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public List<Application> getApplications(){
-        return applicationService.getAllApplications();
+    public List<ApplicationDTO> getApplications(){
+        return applicationService.getAllApplications().stream().map(ApplicationDTO::createFrom).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Application getApplication(
+    public ApplicationDTO getApplication(
             @PathVariable Integer id
     ){
-        return applicationService.getApplication(id);
+        return ApplicationDTO.createFrom(applicationService.getApplication(id));
     }
 
     @PostMapping
@@ -77,10 +78,10 @@ public class ApplicationController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Application> getApplicationsForUser(
+    public List<ApplicationDTO> getApplicationsForUser(
             @PathVariable Integer userId
     ) {
-        return applicationService.getApplicationsForUser(userId);
+        return applicationService.getApplicationsForUser(userId).stream().map(ApplicationDTO::createFrom).collect(Collectors.toList());
     }
 
 }

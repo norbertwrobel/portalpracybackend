@@ -21,14 +21,14 @@ public class FileService {
         return fileRepository.findById(id);
     }
 
-    public File updateFile(Integer id, byte[] data) {
-        return fileRepository.findById(id)
-                .map(file -> {
-                    file.setData(data);
-                    return fileRepository.save(file);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("File not found"));
-    }
+//    public File updateFile(Integer id, byte[] data) {
+//        return fileRepository.findById(id)
+//                .map(file -> {
+//                    file.setData(data);
+//                    return fileRepository.save(file);
+//                })
+//                .orElseThrow(() -> new ResourceNotFoundException("File not found"));
+//    }
 
     public void deleteFile(Integer id) {
         fileRepository.deleteById(id);

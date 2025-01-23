@@ -18,7 +18,7 @@ import java.util.Set;
 @DiscriminatorValue("companyHr")
 public class CompanyHR extends User {
 
-    @OneToMany(mappedBy = "companyHr", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "companyHr")
     private List<JobPost> jobPosts;
 
 }

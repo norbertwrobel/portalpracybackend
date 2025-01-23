@@ -19,8 +19,8 @@ public class File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer fileId;
 
-    @Lob
-    private byte[] data;
+    @Column
+    private String fileName;
 
     public File(byte[] data) {
     }
