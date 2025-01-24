@@ -74,6 +74,7 @@ public class ApplicationService {
     public void changeStatusOfApplication(int id ,ApplicationStatus applicationStatus) {
         Application application = applicationRepository.findById(id).orElseThrow();
         application.setStatus(applicationStatus);
+        applicationRepository.save(application);
     }
 
     public void createApplicationWithFile(MultipartFile file, Integer userId, Integer jobPostId) {

@@ -71,7 +71,7 @@ public class ApplicationController {
     @PatchMapping("/{id}/status")
     public ResponseEntity changeStatus(
             @PathVariable Integer id,
-            @RequestParam ApplicationStatus status
+            @RequestParam("status") ApplicationStatus status
     ) {
         applicationService.changeStatusOfApplication(id, status);
         return ResponseEntity.ok().build();

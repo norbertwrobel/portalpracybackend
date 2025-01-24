@@ -19,12 +19,12 @@ public class UserController {
         return userService.getAllUsers().stream().map(UserDTO::createFrom).collect(Collectors.toList());
     }
 
-//    @GetMapping("/{id}")
-//    public UserDTO getUser(
-//            @PathVariable Integer id
-//    ) {
-//        return UserDTO.createFrom(userService.getUser(id));
-//    }
+    @GetMapping("/user/{id}")
+    public UserDTO getUser(
+            @PathVariable Integer id
+    ) {
+        return UserDTO.createFrom(userService.getUser(id));
+    }
 
     @PostMapping
     public void createUser(

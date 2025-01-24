@@ -33,7 +33,7 @@ public class JobPost {
     @Column
     private Integer salary;
 
-    @OneToMany(mappedBy = "jobPost")
+    @OneToMany(mappedBy = "jobPost", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<Application> application;
 

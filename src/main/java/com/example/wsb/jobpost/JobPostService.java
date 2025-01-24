@@ -1,11 +1,8 @@
 package com.example.wsb.jobpost;
 
-import com.example.wsb.chatgpt.ChatGPTService;
 import com.example.wsb.exception.ResourceNotFoundException;
 import com.example.wsb.user.User;
 import com.example.wsb.user.UserRepository;
-import com.example.wsb.user.companyhr.CompanyHR;
-import com.example.wsb.user.companyhr.CompanyHRDao;
 import com.example.wsb.user.companyhr.CompanyHRRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +19,6 @@ public class JobPostService {
     private final JobPostDao jobPostDao;
     private final CompanyHRRepository companyHRRepository;
     private final JobPostRepository jobPostRepository;
-    private final ChatGPTService chatGPTService;
     private final UserRepository userRepository;
 
 
