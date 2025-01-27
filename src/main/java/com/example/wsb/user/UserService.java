@@ -66,7 +66,6 @@ public class UserService {
         User user = getUser(userId);
 
         boolean changes = false;
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (updateRequest.getFirstName() != null && !updateRequest.getFirstName().equals(user.getFirstName())) {
             user.setFirstName(updateRequest.getFirstName());
@@ -83,7 +82,6 @@ public class UserService {
 
             changes = true;
         }
-
 
         if (updateRequest.getPassword() != null && !updateRequest.getPassword().equals(user.getPassword())) {
 
@@ -107,11 +105,6 @@ public class UserService {
             throw new RequestValidationException("no user changes found");
         }
         userRepository.save(user);
-
-
-
-
-
     }
 
 

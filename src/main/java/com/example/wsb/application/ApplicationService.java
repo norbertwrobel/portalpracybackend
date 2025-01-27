@@ -109,14 +109,6 @@ public class ApplicationService {
             throw new RuntimeException("Nie udało się zapisać pliku", e);
         }
 
-//        // Odczytanie danych pliku jako byte[]
-//        byte[] fileData;
-//        try {
-//            fileData = Files.readAllBytes(filePath); // Odczytujemy dane z zapisanych plików na dysku
-//        } catch (IOException e) {
-//            throw new RuntimeException("Nie udało się odczytać danych z pliku", e);
-//        }
-//
         // Utworzenie obiektu File i zapis w bazie danych
         File savedFile = new File();
         savedFile.setFileName(fileName); // Zapisanie nazwy pliku, a nie danych binarnych
