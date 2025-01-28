@@ -9,9 +9,7 @@ public interface UserDao {
     boolean existsPersonWithEmail(String email);
     void deleteUserById(Integer userId);
     boolean existsPersonWithId(Integer id);
-
     void updateUser(User update);
-
     List<User> findAllUsersWithLeftJoinFetch();
 
 }

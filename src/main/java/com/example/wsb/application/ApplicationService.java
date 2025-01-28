@@ -84,13 +84,12 @@ public class ApplicationService {
         JobPost jobPost = jobPostRepository.findById(jobPostId)
                 .orElseThrow(() -> new ResourceNotFoundException("JobPost not found"));
 
-        // Zdefiniowanie ścieżki do katalogu uploads
+        // hardcoded sciezka do katalogu uploads
         Path uploadDir = Paths.get("C:/Users/h4ck3/Documents/GitHub/portalpracybackend/uploads");
 
-        // Sprawdzenie, czy katalog istnieje. Jeśli nie, to go tworzymy
         if (!Files.exists(uploadDir)) {
             try {
-                Files.createDirectories(uploadDir); // Tworzenie katalogu, jeśli nie istnieje
+                Files.createDirectories(uploadDir); //tworzenie katalogu jesli nie istnieje
             } catch (IOException e) {
                 throw new RuntimeException("Nie udało się utworzyć katalogu uploads", e);
             }

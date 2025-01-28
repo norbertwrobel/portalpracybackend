@@ -32,10 +32,9 @@ public class JwtService {
     public String generateToken(UserDetails userDetails){
         Map<String, Object> extraClaims = new HashMap<>();
 
-        // Pobieranie ról użytkownika i dodawanie ich do claims
+        // pobieranie rol użytkownika i dodawanie ich do claims tokena
         extraClaims.put("scopes", userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority) // Pobieranie nazwy roli (np. ROLE_ADMIN)
-
+                .map(GrantedAuthority::getAuthority)
                 .toList());
 
         if (userDetails instanceof User) {

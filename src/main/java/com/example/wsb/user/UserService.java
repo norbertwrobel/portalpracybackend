@@ -60,8 +60,6 @@ public class UserService {
         userDao.deleteUserById(userId);
     }
 
-
-
     public void updateUser(Integer userId, UserUpdateRequest updateRequest) {
         User user = getUser(userId);
 

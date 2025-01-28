@@ -23,11 +23,9 @@ public class JobPostService {
 
 
     public CreateJobPostResponse createJobPost(JobPostCreationRequest creationRequest) throws IOException {
-        String jobDescription;
 
         JobPost jobPost = JobPost.builder()
                 .title(creationRequest.title())
-                //.description(jobDescription)
                 .description(creationRequest.description())
                 .requirements(creationRequest.requirements())
                 .salary(creationRequest.salary())

@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
-
     private final JwtService jwtService;
 
     @Bean
@@ -30,7 +29,7 @@ public class ApplicationConfig {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         UserDetailsService userDetailsService = userDetailsService();
-        return new JwtAuthenticationFilter(jwtService, userDetailsService,userRepository);
+        return new JwtAuthenticationFilter(userDetailsService, jwtService, userRepository);
     }
 
     @Bean

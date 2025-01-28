@@ -32,6 +32,13 @@ public class UserController {
         userService.addUser(request);
     }
 
+    @GetMapping("/{login}")
+    public UserDTO findUserByLogin(
+            @PathVariable String login
+    ){
+        return UserDTO.createFrom(userService.findUserByLogin(login).orElseThrow());
+    }
+
     @DeleteMapping("/{login}")
     public void deleteUser(
             @PathVariable String login
@@ -48,13 +55,5 @@ public class UserController {
         User user = userService.findUserByLogin(login).orElseThrow();
         userService.updateUser(user.getUserId(), updateRequest);
     }
-
-    @GetMapping("/{login}")
-    public UserDTO findUserByLogin(
-            @PathVariable String login
-    ){
-        return UserDTO.createFrom(userService.findUserByLogin(login).orElseThrow());
-    }
-
 
 }
